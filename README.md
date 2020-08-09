@@ -12,7 +12,21 @@ CREATE TABLE `tComments` (
   `commentID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`commentID`))
   
- //books table
+  //location types (to be baseloaded)
+  
+  CREATE TABLE `tLocationType` (
+  `locationDescription` varchar(50) DEFAULT NULL,
+  `typeID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`typeID`))
+  
+  //status types (to be baseloaded)
+  
+  CREATE TABLE `tStatusType` (
+  `statusDescription` varchar(50) DEFAULT NULL,
+  `typeID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`typeID`))
+  
+   //books table (must make location and status tables first)
  
   CREATE TABLE `tBooks` (
   `statusTypeID` int(11) NOT NULL,
@@ -28,20 +42,6 @@ CREATE TABLE `tComments` (
   KEY `locationTypeID` (`locationTypeID`),
   CONSTRAINT `tBooks_ibfk_1` FOREIGN KEY (`statusTypeID`) REFERENCES `tStatusType` (`typeID`),
   CONSTRAINT `tBooks_ibfk_2` FOREIGN KEY (`locationTypeID`) REFERENCES `tLocationType` (`typeID`))
-  
-  //location types (to be baseloaded)
-  
-  CREATE TABLE `tLocationType` (
-  `locationDescription` varchar(50) DEFAULT NULL,
-  `typeID` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`typeID`))
-  
-  //status types (to be baseloaded)
-  
-  CREATE TABLE `tStatusType` (
-  `statusDescription` varchar(50) DEFAULT NULL,
-  `typeID` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`typeID`))
   
   //link table for linking comments to books (one to many)
   
@@ -125,7 +125,7 @@ DELIMITER ;
 
 #Baseloads 
 
-NOTE: Baseload tLocationType with some location values, in my case they are as follows (keep in mind these tables auto increment, so insert them in the order you wish their values to be OR remove the auto incrementation feature when creating the tables):
+NOTE: Baseload tStatus and tLocationType type with soeme values. In my case they are as follows (keep in mind these tables auto increment, so insert them in the order you wish their values to be OR remove the auto incrementation feature when creating the tables):
 
     Available         |      1 
     Checked Out       |      2 
