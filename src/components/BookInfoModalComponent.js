@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import actions
-import { addComment, checkOut, removeBook } from '../actions/bookActions'
+import { addComment, checkOut, removeBook, getAllBooks } from '../actions/bookActions'
 import { getDateFromMySQLFormat } from '../actions/globalActions'
 
 const mapStateToProps = state => ({
@@ -21,6 +21,7 @@ export class BookInfoModal extends Component {
     closeBookInfoModal() {
         this.props.closeBookInfoModal();
         this.props.clearSelectedBook();
+        this.props.getAllBooks();
     }
     onSubmit(event) {
         event.preventDefault();
@@ -80,7 +81,7 @@ export class BookInfoModal extends Component {
         <div className="alpha-sheet bookinfo">
             <div className="book-modal">
                 <div className="book-content">
-                    <div>
+                   {bookInfo && bookInfo.title && <div>
                         <div className="book-info-header">
                             {bookInfo.title}<br/>
                             By {bookInfo.author}<br/>
@@ -102,18 +103,22 @@ export class BookInfoModal extends Component {
                         bookInfo.statusTypeID == 1 ? 'Check Out!' : 
                         bookInfo.statusTypeID == 4 ? 'Grab a Copy!' :
                         bookInfo.statusTypeID == 2 && bookInfo.checkedOutBy == this.props.layout.user ? 'Return It' : 'Unavailable'}</button>
-                    </div>
-                    {bookInfo.statusTypeID != 3 && <span className='edit-link' onClick={this.toggleAddBookModal.bind(this)}>Edit</span>}
-                    <span className='edit-link' onClick={this.removeBook.bind(this)}>Remove From Library Forever.</span>
+                    </div>} 
+                    
+                    {bookInfo && bookInfo.statusTypeID != 3 && <span className='edit-link' onClick={this.toggleAddBookModal.bind(this)}>Edit</span>}
+                    {bookInfo && bookInfo.bookID && <span className='edit-link' onClick={this.removeBook.bind(this)}>Remove From Library Forever.</span>}
+                    {!bookInfo && <div className="book-info-header">Sorry, This Book Was Deleted!</div>}
                 </div>
                 <div className="comment-page">
                     <span className="close" onClick={this.closeBookInfoModal.bind(this)}>&times;</span>
                     {/*loop through comments and display them*/}
+                    {bookInfo && <div>
                     <div className="comment-holder">
-                    {Object.keys(comments).map((commentObject) => {
-                        const comment = comments[commentObject];
-                        return(<span className="commentBox" key={comment.commentID}><span className="info-prefix">{comment.commenterName}:</span> "{comment.comment}"<br/><span className="comment-date">{getDateFromMySQLFormat(comment.created)}</span><hr/></span>)
-                    })}</div>
+                        {Object.keys(comments).map((commentObject) => {
+                            const comment = comments[commentObject];
+                            return(<span className="commentBox" key={comment.commentID}><span className="info-prefix">{comment.commenterName}:</span> "{comment.comment}"<br/><span className="comment-date">{getDateFromMySQLFormat(comment.created)}</span><hr/></span>)
+                        })}
+                    </div>
                     <form onSubmit={this.onSubmit.bind(this)}>
                         <br/>
                         <div>
@@ -123,6 +128,7 @@ export class BookInfoModal extends Component {
                         </div>
                         <button type="submit" value="Submit">Comment!</button>
                     </form>
+                    </div>}
                 </div>
             </div>
         </div>
@@ -136,7 +142,8 @@ const mapDispatchToProps  = (dispatch) => {
         toggleAddBookModal: (isEdit) => dispatch({type: 'TOGGLE_ADD_BOOK_MODAL', payload: isEdit}),
         removeBook: (bookID) => dispatch(removeBook(bookID)),   
         addComment: (comment) => dispatch(addComment(comment)),        
-        checkOut: (checkOutObject) => dispatch(checkOut(checkOutObject))
+        checkOut: (checkOutObject) => dispatch(checkOut(checkOutObject)),
+        getAllBooks: () => dispatch(getAllBooks())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BookInfoModal);
