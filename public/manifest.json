@@ -1,0 +1,10 @@
+{
+  "short_name": "NHS",
+  "name": "Exactus Library",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "content_security_policy": "script-src 'self' 'sha256-GXCs7tKzfMIApnWbdmA9VBWVux8PfSydR4GPgNfbajA=' 'unsafe-inline'; object-src 'self' style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+
+}

@@ -1,0 +1,294 @@
+.sidenav {
+  height: 100%;
+  width: 260px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  color: white;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+  display: grid;
+  grid-template-rows: repeat(4, 85px) 1fr repeat(2, 90px);
+  padding: 10px;
+}
+.sidenav > button {
+    height: 50px;
+}
+.main-canvas {
+    color: white;
+    margin-left: 275px;
+    font-size: 28px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+body { 
+    background-color: #353436;
+    font-family: 'Playfair Display', serif;
+    background-image: url('../assets/dark_wood.png');
+    background-repeat: repeat;
+}
+.book-modal {
+  background-image: url('../assets/open-book-removebg-preview.png');
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  display: grid;
+  background-attachment: fixed;
+  background-position: center;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  color: black;
+  font-size: 20px;
+}
+.edit-link {
+  color: rgb(131, 185, 189);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.edit-link:hover {
+  color: #353436;
+}
+.bookinfo {
+  padding-top: 0px !important;
+}
+.book {
+  background-image: url('../assets/book-cover.jpg');
+  background-size: cover;
+  height: 200px;
+  width: 150px;
+  margin: 10px;
+  background-color: red;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  padding: 35px 20px;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 5px 10px 15px #000;
+  cursor: pointer;
+}
+.book:hover {
+  z-index: 10;
+  position: relative;
+  background-color: #fff;
+  animation: glow 1s infinite alternate;
+  box-shadow:
+    0 0 60px 30px #fff,
+    0 0 100px 60px rgb(255, 174, 0),
+    0 0 140px 90px rgb(255, 251, 0);
+}
+@keyframes glow {
+  from {
+    box-shadow:
+    0 0 2px 1px #fff,
+    0 0 4px 8px rgba(255, 174, 0,0.4),
+    0 0 10px 9px rgba(255, 251, 0,0.4);
+  }
+  to {
+    box-shadow:
+    0 0 5px 4px #fff,
+    0 0 10px 8px rgba(255, 174, 0, 1),
+    0 0 14px 12px rgba(255, 251, 0,1);
+  }
+}
+.book-title {
+  font: bold 20px arial, sans-serif;
+  background-color: rgb(50,0,0);
+  color: transparent;
+  text-shadow: 2px 2px 3px rgba(248,29,37,0.4);
+  background-clip: text;
+  margin-top: 10px;
+}
+.book-comment-count {
+  font-size: 15px;
+  background-color: rgb(86,0,0);
+  color: transparent;
+  text-shadow: 2px 2px 3px rgba(248,29,37,0.4);
+  background-clip: text;
+  font-weight: bold;
+}
+.book-content, .comment-page {
+  font-family: 'Goudy Bookletter 1911', serif;
+  padding-top: 20px;    
+  height: 600px;
+}
+.book-content {
+  text-align: center;
+  padding-right: 55px;
+  margin-left: 45%;
+  width: 50%;
+  overflow: auto;
+  display: grid;
+}
+.comment-page {
+  text-align: left;
+  padding-left: 55px;
+  width: 330px;
+}
+.book-info-cildren {
+  text-align: left;
+}
+.info-prefix {
+  font-weight: bold;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+.login {
+  background-image: url('../assets/bridge_keeper.jfif');
+  background-size: cover;
+  opacity: .35;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.intro-part-one {  
+  font-family: 'Molle', cursive;
+  font-size: 40px;  
+  font-weight: 100;
+}
+.login-form {
+  width: 50%;
+  margin: auto;
+}
+.username {
+ color: white;
+ font-family: 'Goudy Bookletter 1911', serif;
+ font-weight: bold;
+ font-size: 20px;
+ z-index: 10;
+ position: relative;
+}
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+}
+textarea {
+  width: 90%;
+  height: 100px;
+  text-align: left;
+}
+.comment-date {
+  font-size: 12px;
+  font-family: 'Goudy Bookletter 1911', serif;
+}
+.comment-holder {
+  overflow: auto;
+  height: 338px;
+}
+.book-info-header { 
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+.naming-modal {
+  position: relative;
+  display: block;
+  z-index: 1;
+  width: 25%;
+  background-color: white;
+  height: 460px;
+  padding: 20px;
+  overflow: auto;
+  margin: 7% auto;
+}
+.input-red {
+  border: 2px solid red;
+}
+.naming-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #888;
+}
+.naming-modal-content > form{  
+  display: grid;
+  grid-auto-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+#isEBook { 
+  margin:auto;
+}
+.close {    
+  color: #aaaaaa;
+  font-size: 35px;
+  font-weight: bold;
+  margin-left: 90%;
+}
+.modal-close {
+    color: #aaaaaa;
+    font-size: 35px;
+    font-weight: bold;
+    position: absolute;
+    right: 36px;
+}
+
+.close:hover, .modal-close:hover,
+.close:focus, .modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  text-shadow: 2px 2px 3px rgba(27, 25, 25, 0.4);
+}
+.furniture-name {
+  opacity: 0.5;
+  display: block;
+  margin: auto;
+  cursor: pointer;
+}
+.alpha-sheet {
+    z-index: 15;
+    padding-top: 100px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+button {
+  background-color: #a31111;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+button:disabled {
+  cursor: not-allowed;
+  background-color: #523b3b;
+  opacity: 0.4;
+}
+button:hover:enabled {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
