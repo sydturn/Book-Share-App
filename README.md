@@ -1,33 +1,40 @@
 # Library Application
 A web application where users can manage a collection of books owned by various employees in order to organize borrowing and commenting of employee owned books.
 
-#SQL Queries for setting up mySQL db
+## SQL Queries for setting up mySQL db
 
-//comments table
+### Comments table
 
+```sql
 CREATE TABLE `tComments` (
   `comment` varchar(1500) NOT NULL,
   `commenterName` varchar(150) NOT NULL,
   `created` datetime NOT NULL,
   `commentID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`commentID`))
+```
   
-  //location types (to be baseloaded)
+### Location types (to be baseloaded)
   
+```sql  
   CREATE TABLE `tLocationType` (
   `locationDescription` varchar(50) DEFAULT NULL,
   `typeID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`typeID`))
+ ```
+ 
+ ### Status types (to be baseloaded)
   
-  //status types (to be baseloaded)
-  
+  ```sql
   CREATE TABLE `tStatusType` (
   `statusDescription` varchar(50) DEFAULT NULL,
   `typeID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`typeID`))
+  ```
   
-   //books table (must make location and status tables first)
+ ### Books table (must make location and status tables first)
  
+ ```sql
   CREATE TABLE `tBooks` (
   `statusTypeID` int(11) NOT NULL,
   `locationTypeID` int(11) NOT NULL,
@@ -42,9 +49,11 @@ CREATE TABLE `tComments` (
   KEY `locationTypeID` (`locationTypeID`),
   CONSTRAINT `tBooks_ibfk_1` FOREIGN KEY (`statusTypeID`) REFERENCES `tStatusType` (`typeID`),
   CONSTRAINT `tBooks_ibfk_2` FOREIGN KEY (`locationTypeID`) REFERENCES `tLocationType` (`typeID`))
+  ```
   
-  //link table for linking comments to books (one to many)
+ ### Link table for linking comments to books (one to many)
   
+ ```sql
  CREATE TABLE `ltComments_Books` (
   `commentID` int(11) NOT NULL,
   `bookID` int(11) NOT NULL,
@@ -53,9 +62,11 @@ CREATE TABLE `tComments` (
   CONSTRAINT `ltComments_Books_ibfk_1` FOREIGN KEY (`commentID`) REFERENCES `tComments` (`commentID`),
   CONSTRAINT `ltComments_Books_ibfk_2` FOREIGN KEY (`bookID`) REFERENCES `tBooks` (`bookID`)
 ) 
+```
 
-//stored proceedure for adding new books
+### Stored proceedure for adding new books
 
+```sql
 DELIMITER $$
 CREATE PROCEDURE AddNewBook (
   title varchar(150),
@@ -73,9 +84,11 @@ BEGIN
 	`owner`) VALUES (statusTypeID,locationTypeID, title, author, owner);
 END$$
 DELIMITER ;
+```
 
-//store proceedure for updating books
+### Stored proceedure for updating books
 
+```sql
 DELIMITER $$
 CREATE PROCEDURE UpdateBook (
   title varchar(150),
@@ -90,9 +103,11 @@ BEGIN
 	WHERE bookID = incBookID;
 END$$
 DELIMITER ;
+```
 
-//stored proceedure for adding comments and associating them to their books
+### Stored proceedure for adding comments and associating them to their books
 
+```sql
 DELIMITER $$
 CREATE PROCEDURE AddNewComment (
    comment varchar(1500),
@@ -108,9 +123,11 @@ BEGIN
 	INSERT INTO ltComments_Books(`commentID`, `bookID`) VALUES (@commentID, bookID);
 END$$
 DELIMITER ;
+```
 
-//stored proceedure for checking out a book
+### Stored proceedure for checking out a book
   
+```sql
 DELIMITER $$
 CREATE PROCEDURE CheckoutBook (
    checkedOutBy varchar(150),
@@ -122,17 +139,22 @@ BEGIN
 	UPDATE tBooks SET `statusTypeID` = statusTypeID, `locationTypeID` = locationTypeID, `checkedOutBy`=checkedOutBy, checkedOutDate=NOW() WHERE bookID = incBookID;
 END$$
 DELIMITER ;
+```
 
-#Baseloads 
+## Baseloads 
 
 NOTE: Baseload tStatus and tLocationType type with soeme values. In my case they are as follows (keep in mind these tables auto increment, so insert them in the order you wish their values to be OR remove the auto incrementation feature when creating the tables):
 
-    Available         |      1 
-    Checked Out       |      2 
-    Damaged           |      3
-    Digital Copy      |      4
+| tStatusType        |     |
+| ------------------ | --- |
+|  Available         |  1  |
+|  Checked Out       |  2  |
+|  Damaged           |  3  |
+|  Digital Copy      |  4  |
 
-    In Office         |      1 
-    Owner's Home      |      2 
-    In the Matrix     |      3
+| tLocationType     |     |
+| ----------------- | --- |
+| In Office         |  1  |
+| Owner's Home      |  2  |
+| In the Matrix     |  3  |
 
