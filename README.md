@@ -143,7 +143,7 @@ DELIMITER ;
 
 ## Baseloads 
 
-NOTE: Baseload tStatus and tLocationType type with soeme values. In my case they are as follows (keep in mind these tables auto increment, so insert them in the order you wish their values to be OR remove the auto incrementation feature when creating the tables):
+NOTE: Baseload tStatus and tLocationType type with some values. In my case they are as follows (keep in mind these tables auto increment, so insert them in the order you wish their values to be OR remove the auto incrementation feature when creating the tables):
 
 | tStatusType        |     |
 | ------------------ | --- |
